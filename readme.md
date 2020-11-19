@@ -2,7 +2,10 @@
 
 **Pretty reporter for [`vfile`](https://github.com/vfile/vfile).** Visually the same as [`vfile-reporter-pretty`](https://github.com/vfile/vfile-reporter-pretty), but avoids a transformation to eslint messages which allows us to support info messages. In addition, it enables unicode output in Windows Terminal and ConEmu.
 
+[![npm status](http://img.shields.io/npm/v/vfile-reporter-pretty-too.svg)](https://www.npmjs.org/package/vfile-reporter-pretty-too)
+[![node](https://img.shields.io/node/v/vfile-reporter-pretty-too.svg)](https://www.npmjs.org/package/vfile-reporter-pretty-too)
 [![Build Status](https://travis-ci.com/vweevers/vfile-reporter-pretty-too.svg?branch=main)](https://travis-ci.com/github/vweevers/vfile-reporter-pretty-too)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ![screenshot](screenshot.png)
 

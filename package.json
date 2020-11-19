@@ -6,7 +6,7 @@
 	"repository": "vweevers/vfile-reporter-pretty-too",
 	"author": "Vincent Weevers",
 	"scripts": {
-		"test": "xo && ava"
+		"test": "standard && ava"
 	},
 	"files": [
 		"index.js"
@@ -29,8 +29,8 @@
 	},
 	"devDependencies": {
 		"ava": "^2.4.0",
-		"strip-ansi": "^6.0.0",
-		"xo": "^0.32.0"
+		"standard": "^16.0.3",
+		"strip-ansi": "^6.0.0"
 	},
 	"ava": {
 		"serial": true
