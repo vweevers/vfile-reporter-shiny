@@ -11,11 +11,10 @@
 
 ## Highlights
 
-- Pretty output.
 - Sorts results by severity.
 - Stylizes inline codeblocks in messages.
-- Command-click a rule ID to open its docs.
-- Command-click a header to reveal the first error in your editor. *(iTerm-only)*
+- In [terminals that support hyperlinks](https://gist.github.com/egmontkob/eb114294efbcd5adb1944c9f3cb5feda#supporting-apps), click a rule to open its docs. This works for [ESLint](https://eslint.org/), [remark](https://remark.js.org/) and [Attend](https://github.com/vweevers/attend) rules.
+- In iTerm and ConEmu, click a filename to open it in your editor.
 
 ## Install
 
@@ -32,14 +31,14 @@ Nothing to do. It's the default reporter.
 ### [Unified](https://unifiedjs.com/)
 
 ```
-remark . --report vfile-reporter-pretty-too
+remark --report vfile-reporter-pretty-too .
 ```
 
-## Tips
+### [Hallmark](https://github.com/vweevers/hallmark)
 
-In iTerm, <kbd>Command</kbd>-click the filename header to open the file in your editor.
-
-In [terminals with support for hyperlinks](https://gist.github.com/egmontkob/eb114294efbcd5adb1944c9f3cb5feda#supporting-apps), <kbd>Command</kbd>-click the rule ID to open its docs.
+```
+hallmark --report vfile-reporter-pretty-too
+```
 
 ## License
 

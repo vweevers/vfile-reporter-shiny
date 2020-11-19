@@ -8,7 +8,7 @@ import lineNumbers from './fixtures/line-numbers.json'
 import sortOrder from './fixtures/sort-by-severity-then-line-then-column.json'
 import messages from './fixtures/messages.json'
 import data from './fixtures/data.json'
-import eslintFormatterPretty from '..'
+import reporter from '..'
 
 const fakeMessages = (desiredSeverity, desiredCount) => {
   const ofDesiredSeverity = messages.filter(({ severity }) => severity === desiredSeverity)
@@ -23,7 +23,7 @@ const fakeMessages = (desiredSeverity, desiredCount) => {
 }
 
 const fakeReport = (errorCount, warningCount) => ({
-  filePath: `${errorCount}-error.${warningCount}-warning.js`,
+  path: `${errorCount}-error.${warningCount}-warning.js`,
   errorCount,
   warningCount,
   messages: fakeMessages(1, warningCount).concat(fakeMessages(2, errorCount))
@@ -39,52 +39,52 @@ const disableHyperlinks = () => {
 
 test('output', t => {
   disableHyperlinks()
-  const output = eslintFormatterPretty(defaultFixture)
+  const output = reporter(defaultFixture)
   console.log(output)
   t.regex(stripAnsi(output), /index\.js:18:2\n/)
-  t.regex(stripAnsi(output), /✖ {3}1:1 {2}AVA should be imported as test. {6}ava\/use-test/)
+  t.regex(stripAnsi(output), /✖ {3}1:1 {2}AVA should be imported as test. {6}ava:use-test/)
 })
 
 test('file heading links to the first error line', t => {
   disableHyperlinks()
-  const output = eslintFormatterPretty(defaultFixture)
+  const output = reporter(defaultFixture)
   console.log(output)
   t.regex(stripAnsi(output), /index\.js:18:2\n/)
 })
 
 test('file heading links to the first warning line if no errors in the file', t => {
   disableHyperlinks()
-  const output = eslintFormatterPretty(defaultFixture)
+  const output = reporter(defaultFixture)
   console.log(output)
   t.regex(stripAnsi(output), /test\.js:1:1\n/)
 })
 
 test('no line numbers', t => {
   disableHyperlinks()
-  const output = eslintFormatterPretty(noLineNumbers)
+  const output = reporter(noLineNumbers)
   console.log(output)
   t.regex(stripAnsi(output), /index\.js\n/)
-  t.regex(stripAnsi(output), /✖ {2}AVA should be imported as test. {6}ava\/use-test/)
+  t.regex(stripAnsi(output), /✖ {2}AVA should be imported as test. {6}ava:use-test/)
 })
 
 test('show line numbers', t => {
   disableHyperlinks()
-  const output = eslintFormatterPretty(lineNumbers)
+  const output = reporter(lineNumbers)
   console.log(output)
-  t.regex(stripAnsi(output), /⚠ {3}0:0 {2}Unexpected todo comment. {13}no-warning-comments/)
-  t.regex(stripAnsi(output), /✖ {3}1:1 {2}AVA should be imported as test. {6}ava\/use-test/)
+  t.regex(stripAnsi(output), /⚠ {3} {5}Unexpected todo comment. {13}eslint:no-warning-comments/)
+  t.regex(stripAnsi(output), /✖ {3}1:1 {2}AVA should be imported as test. {6}ava:use-test/)
 })
 
 test('link rules to documentation when terminal supports links', t => {
   enableHyperlinks()
-  const output = eslintFormatterPretty(defaultFixture)
+  const output = reporter(defaultFixture)
   console.log(output)
-  t.true(output.includes(ansiEscapes.link(chalk.dim('no-warning-comments'), 'https://eslint.org/docs/rules/no-warning-comments')))
+  t.true(output.includes(ansiEscapes.link(chalk.dim('eslint:no-warning-comments'), 'https://eslint.org/docs/rules/no-warning-comments')))
 })
 
 test('sort by severity, then line number, then column number', t => {
   disableHyperlinks()
-  const output = eslintFormatterPretty(sortOrder)
+  const output = reporter(sortOrder)
   const sanitized = stripAnsi(output)
   const indexes = [
     sanitized.indexOf('⚠   1:1'),
@@ -100,7 +100,7 @@ test('sort by severity, then line number, then column number', t => {
 
 test('display warning total before error total', t => {
   disableHyperlinks()
-  const output = eslintFormatterPretty(sortOrder)
+  const output = reporter(sortOrder)
   const sanitized = stripAnsi(output)
   const indexes = [
     sanitized.indexOf('2 warnings'),
@@ -110,7 +110,8 @@ test('display warning total before error total', t => {
   t.deepEqual(indexes, indexes.slice().sort((a, b) => a - b))
 })
 
-test('files will be sorted with least errors at the bottom, but zero errors at the top', t => {
+// I think I prefer keeping file order as-is
+test.skip('files will be sorted with least errors at the bottom, but zero errors at the top', t => {
   disableHyperlinks()
   const reports = [
     fakeReport(1, 0),
@@ -118,7 +119,7 @@ test('files will be sorted with least errors at the bottom, but zero errors at t
     fakeReport(0, 1),
     fakeReport(2, 2)
   ]
-  const output = eslintFormatterPretty(reports)
+  const output = reporter(reports)
   const sanitized = stripAnsi(output)
   const indexes = [
     sanitized.indexOf('0-error.1-warning.js'),
@@ -131,7 +132,7 @@ test('files will be sorted with least errors at the bottom, but zero errors at t
   t.deepEqual(indexes, indexes.slice().sort((a, b) => a - b))
 })
 
-test('files with similar errorCounts will sort according to warningCounts', t => {
+test.skip('files with similar errorCounts will sort according to warningCounts', t => {
   disableHyperlinks()
   const reports = [
     fakeReport(1, 0),
@@ -143,7 +144,7 @@ test('files with similar errorCounts will sort according to warningCounts', t =>
     fakeReport(2, 2),
     fakeReport(2, 1)
   ]
-  const output = eslintFormatterPretty(reports)
+  const output = reporter(reports)
   const sanitized = stripAnsi(output)
   const indexes = [
     sanitized.indexOf('0-error.3-warning.js'),
@@ -162,14 +163,21 @@ test('files with similar errorCounts will sort according to warningCounts', t =>
 
 test('use the `rulesMeta` property to get docs URL', t => {
   enableHyperlinks()
-  const output = eslintFormatterPretty(defaultFixture, data)
+  const output = reporter(defaultFixture, data)
   console.log(output)
-  t.true(output.includes(ansiEscapes.link(chalk.dim('no-warning-comments'), 'https://eslint.org/docs/rules/test/no-warning-comments')))
+  t.true(output.includes(ansiEscapes.link(chalk.dim('eslint:no-warning-comments'), 'https://eslint.org/docs/rules/test/no-warning-comments')))
 })
 
 test('doesn\'t throw errors when rule docs aren\'t found', t => {
   enableHyperlinks()
-  const output = eslintFormatterPretty(defaultFixture, data)
+  const output = reporter(defaultFixture, data)
   console.log(output)
-  t.true(output.includes('@typescript-eslint/no-unused-vars'))
+  t.true(output.includes('@typescript-eslint:no-unused-vars'))
+})
+
+test('link remark-lint rules to remark-lint docs', t => {
+  enableHyperlinks()
+  const output = reporter(defaultFixture, data)
+  console.log(output)
+  t.true(output.includes(ansiEscapes.link(chalk.dim('remark-lint:beep'), 'https://github.com/remarkjs/remark-lint/blob/main/doc/rules.md')))
 })

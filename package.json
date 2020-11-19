@@ -25,7 +25,8 @@
 		"eslint-rule-docs": "^1.1.5",
 		"plur": "^4.0.0",
 		"string-width": "^4.2.0",
-		"supports-hyperlinks": "^2.0.0"
+		"supports-hyperlinks": "^2.0.0",
+		"unist-util-stringify-position": "^2.0.3"
 	},
 	"devDependencies": {
 		"ava": "^2.4.0",
