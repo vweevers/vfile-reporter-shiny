@@ -1,9 +1,9 @@
 {
-	"name": "vfile-reporter-pretty-too",
+	"name": "vfile-reporter-shiny",
 	"version": "0.0.0",
-	"description": "Pretty reporter for vfile",
+	"description": "Shiny reporter for vfile",
 	"license": "MIT",
-	"repository": "vweevers/vfile-reporter-pretty-too",
+	"repository": "vweevers/vfile-reporter-shiny",
 	"author": "Vincent Weevers",
 	"scripts": {
 		"test": "standard && ava"

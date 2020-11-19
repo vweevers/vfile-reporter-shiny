@@ -1,6 +1,6 @@
 [
 	{
-		"path": "/Users/test/dev/vfile-reporter-pretty-too/index.js",
+		"path": "/Users/test/dev/vfile-reporter-shiny/index.js",
 		"messages": [
 			{
 				"ruleId": "no-warning-comments",
