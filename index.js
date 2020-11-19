@@ -9,8 +9,9 @@ const { supportsHyperlink } = require('supports-hyperlinks')
 const getRuleDocs = require('eslint-rule-docs')
 const logSymbols = getLogSymbols()
 
-module.exports = (results, data) => {
+module.exports = function (results, data) {
   const lines = []
+
   let errorCount = 0
   let warningCount = 0
   let maxLineWidth = 0
@@ -18,91 +19,59 @@ module.exports = (results, data) => {
   let maxMessageWidth = 0
   let showLineNumbers = false
 
-  results
-    .sort((a, b) => {
-      if (a.errorCount === b.errorCount) {
-        return b.warningCount - a.warningCount
-      }
+  for (const result of results.sort(cmpResult)) {
+    const { messages, filePath } = result
 
-      if (a.errorCount === 0) {
-        return -1
-      }
+    if (messages.length === 0) {
+      continue
+    }
 
-      if (b.errorCount === 0) {
-        return 1
-      }
+    errorCount += result.errorCount
+    warningCount += result.warningCount
 
-      return b.errorCount - a.errorCount
+    if (lines.length !== 0) {
+      lines.push({ type: 'separator' })
+    }
+
+    const firstErrorOrWarning = messages.find(isError) || messages[0]
+
+    lines.push({
+      type: 'header',
+      filePath,
+      relativeFilePath: path.relative('.', filePath),
+      firstLineCol: firstErrorOrWarning.line + ':' + firstErrorOrWarning.column
     })
-    .forEach(result => {
-      const { messages, filePath } = result
 
-      if (messages.length === 0) {
-        return
-      }
+    for (const m of messages.sort(cmpMessage)) {
+      let { message } = m
 
-      errorCount += result.errorCount
-      warningCount += result.warningCount
+      // Stylize inline code blocks
+      message = message.replace(/\B`(.*?)`\B|\B'(.*?)'\B/g, (m, p1, p2) => chalk.bold(p1 || p2))
 
-      if (lines.length !== 0) {
-        lines.push({ type: 'separator' })
-      }
+      const line = String(m.line || 0)
+      const column = String(m.column || 0)
+      const lineWidth = stringWidth(line)
+      const columnWidth = stringWidth(column)
+      const messageWidth = stringWidth(message)
 
-      const firstErrorOrWarning = messages.find(({ severity }) => severity === 2) || messages[0]
+      maxLineWidth = Math.max(lineWidth, maxLineWidth)
+      maxColumnWidth = Math.max(columnWidth, maxColumnWidth)
+      maxMessageWidth = Math.max(messageWidth, maxMessageWidth)
+      showLineNumbers = showLineNumbers || m.line || m.column
 
       lines.push({
-        type: 'header',
-        filePath,
-        relativeFilePath: path.relative('.', filePath),
-        firstLineCol: firstErrorOrWarning.line + ':' + firstErrorOrWarning.column
+        type: 'message',
+        severity: m.fatal || m.severity === 2 || m.severity === 'error' ? 'error' : 'warning',
+        line,
+        lineWidth,
+        column,
+        columnWidth,
+        message,
+        messageWidth,
+        ruleId: m.ruleId || ''
       })
-
-      messages
-        .sort((a, b) => {
-          if (a.fatal === b.fatal && a.severity === b.severity) {
-            if (a.line === b.line) {
-              return a.column < b.column ? -1 : 1
-            }
-
-            return a.line < b.line ? -1 : 1
-          }
-
-          if ((a.fatal || a.severity === 2) && (!b.fatal || b.severity !== 2)) {
-            return 1
-          }
-
-          return -1
-        })
-        .forEach(x => {
-          let { message } = x
-
-          // Stylize inline code blocks
-          message = message.replace(/\B`(.*?)`\B|\B'(.*?)'\B/g, (m, p1, p2) => chalk.bold(p1 || p2))
-
-          const line = String(x.line || 0)
-          const column = String(x.column || 0)
-          const lineWidth = stringWidth(line)
-          const columnWidth = stringWidth(column)
-          const messageWidth = stringWidth(message)
-
-          maxLineWidth = Math.max(lineWidth, maxLineWidth)
-          maxColumnWidth = Math.max(columnWidth, maxColumnWidth)
-          maxMessageWidth = Math.max(messageWidth, maxMessageWidth)
-          showLineNumbers = showLineNumbers || x.line || x.column
-
-          lines.push({
-            type: 'message',
-            severity: (x.fatal || x.severity === 2 || x.severity === 'error') ? 'error' : 'warning',
-            line,
-            lineWidth,
-            column,
-            columnWidth,
-            message,
-            messageWidth,
-            ruleId: x.ruleId || ''
-          })
-        })
-    })
+    }
+  }
 
   let output = '\n'
 
@@ -111,7 +80,7 @@ module.exports = (results, data) => {
     output += ansiEscapes.iTerm.setCwd()
   }
 
-  output += lines.map(x => {
+  output += lines.map(function (x) {
     if (x.type === 'header') {
       // Add the line number so it's Command-click'able in some terminals
       // Use dim & gray for terminals like iTerm that doesn't support `hidden`
@@ -158,7 +127,43 @@ module.exports = (results, data) => {
     output += '  ' + chalk.red(`${errorCount} ${plur('error', errorCount)}`) + '\n'
   }
 
-  return (errorCount + warningCount) > 0 ? output : ''
+  return errorCount + warningCount > 0 ? output : ''
+}
+
+function isError (message) {
+  return message.severity === 2
+}
+
+function cmpResult (a, b) {
+  if (a.errorCount === b.errorCount) {
+    return b.warningCount - a.warningCount
+  }
+
+  if (a.errorCount === 0) {
+    return -1
+  }
+
+  if (b.errorCount === 0) {
+    return 1
+  }
+
+  return b.errorCount - a.errorCount
+}
+
+function cmpMessage (a, b) {
+  if (a.fatal === b.fatal && a.severity === b.severity) {
+    if (a.line === b.line) {
+      return a.column < b.column ? -1 : 1
+    }
+
+    return a.line < b.line ? -1 : 1
+  }
+
+  if ((a.fatal || a.severity === 2) && (!b.fatal || b.severity !== 2)) {
+    return 1
+  }
+
+  return -1
 }
 
 function getLogSymbols () {
