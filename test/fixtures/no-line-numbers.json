@@ -1,6 +1,6 @@
 [
 	{
-		"filePath": "/Users/sindresorhus/dev/eslint-formatter-pretty/index.js",
+		"filePath": "/Users/test/dev/vfile-reporter-pretty-too/index.js",
 		"messages": [
 			{
 				"ruleId": "no-warning-comments",
@@ -21,7 +21,7 @@
 		"warningCount": 1
 	},
 	{
-		"filePath": "/Users/sindresorhus/dev/eslint-formatter-pretty/test.js",
+		"filePath": "/Users/test/dev/vfile-reporter-pretty-too/test.js",
 		"messages": [
 			{
 				"ruleId": "ava/use-test",

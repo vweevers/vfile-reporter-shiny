@@ -1,8 +1,10 @@
-# eslint-formatter-pretty [![Build Status](https://travis-ci.com/sindresorhus/eslint-formatter-pretty.svg?branch=master)](https://travis-ci.com/github/sindresorhus/eslint-formatter-pretty)
+# vfile-reporter-pretty-too
 
-> Pretty formatter for [ESLint](https://eslint.org)
+**Pretty reporter for [`vfile`](https://github.com/vfile/vfile).** Visually the same as [`vfile-reporter-pretty`](https://github.com/vfile/vfile-reporter-pretty), but avoids a transformation to eslint messages which allows us to support info messages. In addition, it enables unicode output in Windows Terminal and ConEmu.
 
-![](screenshot.png)
+[![Build Status](https://travis-ci.com/vweevers/vfile-reporter-pretty-too.svg?branch=main)](https://travis-ci.com/github/vweevers/vfile-reporter-pretty-too)
+
+![screenshot](screenshot.png)
 
 ## Highlights
 
@@ -15,68 +17,19 @@
 ## Install
 
 ```
-$ npm install --save-dev eslint-formatter-pretty
+npm install vfile-reporter-pretty-too
 ```
 
 ## Usage
 
-### [XO](https://github.com/xojs/xo)
+### [Attend](https://github.com/vweevers/attend)
 
-Nothing to do. It's the default formatter.
+Nothing to do. It's the default reporter.
 
-### ESLint CLI
+### [Unified](https://unifiedjs.com/)
 
 ```
-$ eslint --format=pretty file.js
-```
-
-### [grunt-eslint](https://github.com/sindresorhus/grunt-eslint)
-
-```js
-grunt.initConfig({
-	eslint: {
-		target: ['file.js'].
-		options: {
-			format: 'pretty'
-		}
-	}
-});
-
-grunt.loadNpmTasks('grunt-eslint');
-grunt.registerTask('default', ['eslint']);
-```
-
-### [gulp-eslint](https://github.com/adametry/gulp-eslint)
-
-```js
-const gulp = require('gulp');
-const eslint = require('gulp-eslint');
-
-gulp.task('lint', () =>
-	gulp.src('file.js')
-		.pipe(eslint())
-		.pipe(eslint.format('pretty'))
-);
-```
-
-### [eslint-loader](https://github.com/MoOx/eslint-loader) *(webpack)*
-
-```js
-module.exports = {
-	entry: ['file.js'],
-	module: {
-		rules: [
-			{
-				test: /\.js$/,
-				exclude: /node_modules/,
-				loader: 'eslint-loader',
-				options: {
-					formatter: require('eslint-formatter-pretty')
-				}
-			}
-		]
-	}
-};
+remark . --report vfile-reporter-pretty-too
 ```
 
 ## Tips
@@ -84,3 +37,7 @@ module.exports = {
 In iTerm, <kbd>Command</kbd>-click the filename header to open the file in your editor.
 
 In [terminals with support for hyperlinks](https://gist.github.com/egmontkob/eb114294efbcd5adb1944c9f3cb5feda#supporting-apps), <kbd>Command</kbd>-click the rule ID to open its docs.
+
+## License
+
+[MIT](LICENSE). Forked from [`eslint-formatter-pretty`](https://github.com/sindresorhus/eslint-formatter-pretty).

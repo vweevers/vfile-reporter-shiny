@@ -1,18 +1,10 @@
 {
-	"name": "eslint-formatter-pretty",
-	"version": "4.0.0",
-	"description": "Pretty ESLint formatter",
+	"name": "vfile-reporter-pretty-too",
+	"version": "0.0.0",
+	"description": "Pretty reporter for vfile",
 	"license": "MIT",
-	"repository": "sindresorhus/eslint-formatter-pretty",
-	"funding": "https://github.com/sponsors/sindresorhus",
-	"author": {
-		"name": "Sindre Sorhus",
-		"email": "sindresorhus@gmail.com",
-		"url": "https://sindresorhus.com"
-	},
-	"engines": {
-		"node": ">=10"
-	},
+	"repository": "vweevers/vfile-reporter-pretty-too",
+	"author": "Vincent Weevers",
 	"scripts": {
 		"test": "xo && ava"
 	},
@@ -20,8 +12,8 @@
 		"index.js"
 	],
 	"keywords": [
-		"eslint",
-		"eslint-formatter",
+		"vfile",
+		"vfile-reporter",
 		"formatter",
 		"reporter",
 		"lint",
@@ -43,5 +35,8 @@
 	},
 	"ava": {
 		"serial": true
+	},
+	"engines": {
+		"node": ">=10"
 	}
 }
