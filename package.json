@@ -23,7 +23,6 @@
 		"ansi-escapes": "^4.2.1",
 		"chalk": "^4.1.0",
 		"eslint-rule-docs": "^1.1.5",
-		"log-symbols": "^4.0.0",
 		"plur": "^4.0.0",
 		"string-width": "^4.2.0",
 		"supports-hyperlinks": "^2.0.0"

@@ -1,12 +1,12 @@
 'use strict';
 const path = require('path');
 const chalk = require('chalk');
-const logSymbols = require('log-symbols');
 const plur = require('plur');
 const stringWidth = require('string-width');
 const ansiEscapes = require('ansi-escapes');
 const {supportsHyperlink} = require('supports-hyperlinks');
 const getRuleDocs = require('eslint-rule-docs');
+const logSymbols = getLogSymbols();
 
 module.exports = (results, data) => {
 	const lines = [];
@@ -159,3 +159,21 @@ module.exports = (results, data) => {
 
 	return (errorCount + warningCount) > 0 ? output : '';
 };
+
+function getLogSymbols() {
+	if (process.platform !== 'win32' || process.env.CI || process.env.TERM === 'xterm-256color' || process.env.WT_SESSION || process.env.ConEmuDir) {
+		return {
+			info: chalk.blue('ℹ'),
+			success: chalk.green('✔'),
+			warning: chalk.yellow('⚠'),
+			error: chalk.red('✖')
+		};
+	}
+
+	return {
+		info: chalk.blue('i'),
+		success: chalk.green('√'),
+		warning: chalk.yellow('‼'),
+		error: chalk.red('×')
+	};
+}
