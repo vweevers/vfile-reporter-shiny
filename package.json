@@ -6,7 +6,7 @@
 	"repository": "vweevers/vfile-reporter-shiny",
 	"author": "Vincent Weevers",
 	"scripts": {
-		"test": "standard && ava"
+		"test": "standard && depcheck && ava"
 	},
 	"files": [
 		"index.js"
@@ -30,6 +30,7 @@
 	},
 	"devDependencies": {
 		"ava": "^2.4.0",
+		"depcheck": "^1.3.1",
 		"standard": "^16.0.3",
 		"strip-ansi": "^6.0.0"
 	},
