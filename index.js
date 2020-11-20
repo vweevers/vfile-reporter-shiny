@@ -14,6 +14,7 @@ module.exports = function (files, options) {
   if (!options) options = {}
 
   const lines = []
+  const link = supportsHyperlink(process.stdout) || process.env.WT_SESSION
   const cwd = path.resolve(options.cwd || '.')
 
   let infoCount = 0
@@ -104,7 +105,7 @@ module.exports = function (files, options) {
         ' '.repeat(maxPosWidth - x.posWidth) + chalk.gray(x.pos),
         x.reason,
         ' '.repeat(maxReasonWidth - x.reasonWidth) +
-        (ruleUrl && supportsHyperlink(process.stdout) ? ansiEscapes.link(chalk.dim(ruleId), ruleUrl) : chalk.dim(ruleId))
+        (ruleUrl && link ? ansiEscapes.link(chalk.dim(ruleId), ruleUrl) : chalk.dim(ruleId))
       ]
 
       if (!showLineNumbers) {
