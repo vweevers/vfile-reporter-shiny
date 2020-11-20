@@ -3,6 +3,7 @@
 const path = require('path')
 const chalk = require('chalk')
 const plur = require('plur')
+const fs = require('fs')
 const stringWidth = require('string-width')
 const ansiEscapes = require('ansi-escapes')
 const { supportsHyperlink } = require('supports-hyperlinks')
@@ -43,11 +44,14 @@ module.exports = function (files, options) {
     }
 
     const firstError = messages.find(isError) || messages[0]
+    const absolutePath = path.resolve(file.cwd || cwd, file.path)
+    const relativePath = path.relative(cwd, absolutePath)
 
     lines.push({
       type: 'header',
       path: file.path,
-      relativeFilePath: path.relative(cwd, path.resolve(file.cwd || cwd, file.path)),
+      relativePath: relativePath || '.',
+      isDir: isDir(relativePath, absolutePath),
       firstLinePos: stringify(firstError)
     })
 
@@ -92,9 +96,10 @@ module.exports = function (files, options) {
     if (x.type === 'header') {
       // Add the line number so it's Command-click'able in some terminals
       // Use dim & gray for terminals like iTerm that doesn't support `hidden`
-      const position = showLineNumbers && x.firstLinePos ? chalk.hidden.dim.gray(`:${x.firstLinePos}`) : ''
+      const position = showLineNumbers && x.firstLinePos && !x.isDir ? chalk.hidden.dim.gray(`:${x.firstLinePos}`) : ''
+      const header = chalk.underline((x.isDir ? '<dir> ' : '') + x.relativePath)
 
-      return '  ' + chalk.underline(x.relativeFilePath) + position
+      return '  ' + header + position
     }
 
     if (x.type === 'message') {
@@ -168,6 +173,23 @@ function cmpMessage (a, b) {
   }
 
   return a.severity < b.severity ? -1 : 1
+}
+
+function isDir (relativePath, absolutePath) {
+  if (relativePath === '') {
+    return true
+  }
+
+  // Save a few fs lookups
+  if (/\.(js|jsx|json|md|png|gif|yml|xml|css|html|gitignore|npmrc)$/i.test(absolutePath)) {
+    return false
+  }
+
+  try {
+    return fs.statSync(absolutePath).isDirectory()
+  } catch {
+    return false
+  }
 }
 
 function getLogSymbols () {
