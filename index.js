@@ -14,6 +14,7 @@ module.exports = function (files, options) {
   if (!options) options = {}
 
   const lines = []
+  const cwd = path.resolve(options.cwd || '.')
 
   let infoCount = 0
   let warningCount = 0
@@ -45,7 +46,7 @@ module.exports = function (files, options) {
     lines.push({
       type: 'header',
       path: file.path,
-      relativeFilePath: path.relative('.', path.resolve(file.cwd || '.', file.path)),
+      relativeFilePath: path.relative(cwd, path.resolve(file.cwd || cwd, file.path)),
       firstLinePos: stringify(firstError)
     })
 
