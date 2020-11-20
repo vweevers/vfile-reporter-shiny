@@ -1,6 +1,6 @@
 [
 	{
-		"path": "/Users/test/dev/vfile-reporter-shiny/index.js",
+		"path": "index.js",
 		"messages": [
 			{
 				"ruleId": "no-warning-comments",
@@ -18,68 +18,47 @@
 				"column": 2,
 				"nodeType": "Program"
 			}
-		],
-		"errorCount": 1,
-		"warningCount": 1
+		]
 	},
 	{
-		"path": "/Users/test/dev/vfile-reporter-shiny/test.js",
+		"path": "test.js",
 		"messages": [
 			{
 				"ruleId": "ava/use-test",
 				"severity": 2,
 				"reason": "AVA should be imported as `test`.",
 				"line": 1,
-				"column": 1,
-				"nodeType": "ImportDeclaration"
+				"column": 1
 			}
-		],
-		"errorCount": 1,
-		"warningCount": 0
+		]
 	},
 	{
-		"path": "/Users/test/dev/vfile-reporter-shiny/foo.js",
+		"path": "CHANGELOG.md",
 		"messages": [
 			{
-				"ruleId": "no-warning-comments",
-				"severity": 1,
-				"reason": "Unexpected 'todo' comment.",
-				"line": 8,
-				"column": 2,
-				"nodeType": "Line"
+				"ruleId": "remark-changelog:release-date",
+				"fatal": false,
+				"reason": "Release must have date",
+				"line": 7,
+				"column": 1
+			},
+			{
+				"ruleId": "remark-lint:code-block-style",
+				"fatal": false,
+				"reason": "Code blocks should be fenced",
+				"line": 9,
+				"column": 25
 			}
-		],
-		"errorCount": 0,
-		"warningCount": 1
+		]
 	},
 	{
-		"path": "/Users/test/dev/vfile-reporter-shiny/foo.js",
+		"path": ".",
 		"messages": [
 			{
-				"ruleId": "@typescript-eslint/no-unused-vars",
-				"severity": 1,
-				"reason": "Unexpected 'todo' comment.",
-				"line": 8,
-				"column": 2,
-				"nodeType": "Line"
+				"ruleId": "attend:pr",
+				"fatal": null,
+				"reason": "Pull request was already merged"
 			}
-		],
-		"errorCount": 0,
-		"warningCount": 1
-	},
-	{
-		"path": "/Users/test/dev/vfile-reporter-shiny/foo.js",
-		"messages": [
-			{
-				"ruleId": "remark-lint:beep",
-				"severity": 1,
-				"reason": "Boop",
-				"line": 8,
-				"column": 2,
-				"nodeType": "Line"
-			}
-		],
-		"errorCount": 0,
-		"warningCount": 1
+		]
 	}
 ]

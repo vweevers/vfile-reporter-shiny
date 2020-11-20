@@ -1,0 +1,14 @@
+[
+	{
+		"path": "foo.js",
+		"messages": [
+			{
+				"ruleId": "@typescript-eslint/no-unused-vars",
+				"severity": 1,
+				"reason": "Unexpected 'todo' comment.",
+				"line": 8,
+				"column": 2
+			}
+		]
+	}
+]

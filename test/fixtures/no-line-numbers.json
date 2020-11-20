@@ -1,34 +1,27 @@
 [
 	{
-		"path": "/Users/test/dev/vfile-reporter-shiny/index.js",
+		"path": "index.js",
 		"messages": [
 			{
 				"ruleId": "no-warning-comments",
 				"severity": 1,
-				"reason": "Unexpected 'todo' comment.",
-				"nodeType": "Line"
+				"reason": "Unexpected 'todo' comment."
 			},
 			{
 				"ruleId": "no-multiple-empty-lines",
 				"severity": 2,
-				"reason": "More than 1 blank line not allowed.",
-				"nodeType": "Program"
+				"reason": "More than 1 blank line not allowed."
 			}
-		],
-		"errorCount": 1,
-		"warningCount": 1
+		]
 	},
 	{
-		"path": "/Users/test/dev/vfile-reporter-shiny/test.js",
+		"path": "test.js",
 		"messages": [
 			{
 				"ruleId": "ava/use-test",
 				"severity": 2,
-				"reason": "AVA should be imported as `test`.",
-				"nodeType": "ImportDeclaration"
+				"reason": "AVA should be imported as `test`."
 			}
-		],
-		"errorCount": 1,
-		"warningCount": 0
+		]
 	}
 ]

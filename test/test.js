@@ -1,14 +1,15 @@
-import test from 'ava'
-import stripAnsi from 'strip-ansi'
-import ansiEscapes from 'ansi-escapes'
-import chalk from 'chalk'
-import defaultFixture from './fixtures/default.json'
-import noLineNumbers from './fixtures/no-line-numbers.json'
-import lineNumbers from './fixtures/line-numbers.json'
-import sortOrder from './fixtures/sort-by-severity-then-line-then-column.json'
-import messages from './fixtures/messages.json'
-import data from './fixtures/data.json'
-import reporter from '..'
+const test = require('ava')
+const stripAnsi = require('strip-ansi')
+const ansiEscapes = require('ansi-escapes')
+const chalk = require('chalk')
+const defaultFixture = require('./fixtures/default.json')
+const noRuleDocs = require('./fixtures/no-rule-docs.json')
+const noLineNumbers = require('./fixtures/no-line-numbers.json')
+const lineNumbers = require('./fixtures/line-numbers.json')
+const sortOrder = require('./fixtures/sort-by-severity-then-line-then-column.json')
+const messages = require('./fixtures/messages.json')
+const data = require('./fixtures/data.json')
+const reporter = require('..')
 
 const fakeMessages = (desiredSeverity, desiredCount) => {
   const ofDesiredSeverity = messages.filter(({ severity }) => severity === desiredSeverity)
@@ -42,7 +43,7 @@ test('output', t => {
   const output = reporter(defaultFixture)
   console.log(output)
   t.regex(stripAnsi(output), /index\.js:18:2\n/)
-  t.regex(stripAnsi(output), /❌ {3}1:1 {2}AVA should be imported as test. {6}ava:use-test/)
+  t.regex(stripAnsi(output), /❌ {3}1:1 {2}AVA should be imported as test. +ava:use-test/)
 })
 
 test('file heading links to the first error line', t => {
@@ -64,15 +65,15 @@ test('no line numbers', t => {
   const output = reporter(noLineNumbers)
   console.log(output)
   t.regex(stripAnsi(output), /index\.js\n/)
-  t.regex(stripAnsi(output), /❌ {2}AVA should be imported as test. {6}ava:use-test/)
+  t.regex(stripAnsi(output), /❌ {2}AVA should be imported as test. +ava:use-test/)
 })
 
 test('show line numbers', t => {
   disableHyperlinks()
   const output = reporter(lineNumbers)
   console.log(output)
-  t.regex(stripAnsi(output), /⚠️ {3} {5}Unexpected todo comment. {13}eslint:no-warning-comments/)
-  t.regex(stripAnsi(output), /❌ {3}1:1 {2}AVA should be imported as test. {6}ava:use-test/)
+  t.regex(stripAnsi(output), /⚠️ {3} {5}Unexpected todo comment. +eslint:no-warning-comments/)
+  t.regex(stripAnsi(output), /❌ {3}1:1 {2}AVA should be imported as test. +ava:use-test/)
 })
 
 test('link rules to documentation when terminal supports links', t => {
@@ -170,7 +171,7 @@ test('use the `rulesMeta` property to get docs URL', t => {
 
 test('doesn\'t throw errors when rule docs aren\'t found', t => {
   enableHyperlinks()
-  const output = reporter(defaultFixture, data)
+  const output = reporter(noRuleDocs, data)
   console.log(output)
   t.true(output.includes('@typescript-eslint:no-unused-vars'))
 })
@@ -179,5 +180,6 @@ test('link remark-lint rules to remark-lint docs', t => {
   enableHyperlinks()
   const output = reporter(defaultFixture, data)
   console.log(output)
-  t.true(output.includes(ansiEscapes.link(chalk.dim('remark-lint:beep'), 'https://github.com/remarkjs/remark-lint/blob/main/doc/rules.md')))
+  t.true(output.includes(ansiEscapes.link(chalk.dim('remark-lint:code-block-style'), 'https://github.com/remarkjs/remark-lint/blob/main/doc/rules.md')))
+  t.true(output.includes(ansiEscapes.link(chalk.dim('remark-changelog:release-date'), 'https://npmjs.com/package/remark-changelog')))
 })

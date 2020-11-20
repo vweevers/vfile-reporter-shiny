@@ -4,55 +4,48 @@
 		"severity": 1,
 		"reason": "Unexpected 'todo' comment.",
 		"line": 1,
-		"column": 1,
-		"nodeType": "Line"
+		"column": 1
 	},
 	{
 		"ruleId": "no-multiple-empty-lines",
 		"severity": 2,
 		"reason": "More than 1 blank line not allowed.",
 		"line": 3,
-		"column": 1,
-		"nodeType": "Program"
+		"column": 1
 	},
 	{
 		"ruleId": "no-warning-comments",
 		"severity": 1,
 		"reason": "Unexpected 'todo' comment.",
 		"line": 10,
-		"column": 2,
-		"nodeType": "Line"
+		"column": 2
 	},
 	{
 		"ruleId": "no-warning-comments",
 		"severity": 1,
 		"reason": "Unexpected 'todo' comment.",
 		"line": 15,
-		"column": 2,
-		"nodeType": "Line"
+		"column": 2
 	},
 	{
 		"ruleId": "no-multiple-empty-lines",
 		"severity": 2,
 		"reason": "More than 1 blank line not allowed.",
 		"line": 30,
-		"column": 1,
-		"nodeType": "Program"
+		"column": 1
 	},
 	{
 		"ruleId": "no-unused-vars",
 		"severity": 2,
 		"reason": "'i' is defined but never used.",
 		"line": 40,
-		"column": 5,
-		"nodeType": "Identifier"
+		"column": 5
 	},
 	{
 		"ruleId": "no-unused-vars",
 		"severity": 2,
 		"reason": "'j' is defined but never used.",
 		"line": 40,
-		"column": 8,
-		"nodeType": "Identifier"
+		"column": 8
 	}
 ]

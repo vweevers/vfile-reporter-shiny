@@ -138,7 +138,7 @@ function ruleInfo (ruleId, options) {
   if (/^remark-lint:/.test(commonRule)) {
     ruleUrl = 'https://github.com/remarkjs/remark-lint/blob/main/doc/rules.md'
   } else if (/^(remark|hallmark|attend)[a-z0-9-]*:/.test(commonRule)) {
-    ruleUrl = 'https://www.npmjs.com/package/' + commonRule.split(':')[0]
+    ruleUrl = 'https://npmjs.com/package/' + commonRule.split(':')[0]
   } else {
     const eslintRule = ruleId.replace(/:/g, '/').replace(/^eslint[/]/, '')
 
