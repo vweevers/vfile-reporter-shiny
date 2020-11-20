@@ -195,7 +195,7 @@ function isDir (relativePath, absolutePath) {
 function getLogSymbols () {
   if (process.platform !== 'win32' || process.env.CI || process.env.TERM === 'xterm-256color' || process.env.WT_SESSION) {
     return {
-      info: '💡',
+      info: '🔷',
       warning: '⚠️',
       error: '❌'
     }
