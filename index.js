@@ -169,18 +169,16 @@ function cmpMessage (a, b) {
 }
 
 function getLogSymbols () {
-  if (process.platform !== 'win32' || process.env.CI || process.env.TERM === 'xterm-256color' || process.env.WT_SESSION || process.env.ConEmuDir) {
+  if (process.platform !== 'win32' || process.env.CI || process.env.TERM === 'xterm-256color' || process.env.WT_SESSION) {
     return {
-      info: chalk.blue('»' /* 'ℹ' */),
-      success: chalk.green('✔'),
-      warning: chalk.yellow('⚠'),
-      error: chalk.red('✖')
+      info: '💡',
+      warning: '⚠️',
+      error: '❌'
     }
   }
 
   return {
-    info: chalk.blue('»' /* 'i' */),
-    success: chalk.green('√'),
+    info: chalk.blue('i'),
     warning: chalk.yellow('‼'),
     error: chalk.red('×')
   }

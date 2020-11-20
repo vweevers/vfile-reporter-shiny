@@ -42,7 +42,7 @@ test('output', t => {
   const output = reporter(defaultFixture)
   console.log(output)
   t.regex(stripAnsi(output), /index\.js:18:2\n/)
-  t.regex(stripAnsi(output), /✖ {3}1:1 {2}AVA should be imported as test. {6}ava:use-test/)
+  t.regex(stripAnsi(output), /❌ {3}1:1 {2}AVA should be imported as test. {6}ava:use-test/)
 })
 
 test('file heading links to the first error line', t => {
@@ -64,15 +64,15 @@ test('no line numbers', t => {
   const output = reporter(noLineNumbers)
   console.log(output)
   t.regex(stripAnsi(output), /index\.js\n/)
-  t.regex(stripAnsi(output), /✖ {2}AVA should be imported as test. {6}ava:use-test/)
+  t.regex(stripAnsi(output), /❌ {2}AVA should be imported as test. {6}ava:use-test/)
 })
 
 test('show line numbers', t => {
   disableHyperlinks()
   const output = reporter(lineNumbers)
   console.log(output)
-  t.regex(stripAnsi(output), /⚠ {3} {5}Unexpected todo comment. {13}eslint:no-warning-comments/)
-  t.regex(stripAnsi(output), /✖ {3}1:1 {2}AVA should be imported as test. {6}ava:use-test/)
+  t.regex(stripAnsi(output), /⚠️ {3} {5}Unexpected todo comment. {13}eslint:no-warning-comments/)
+  t.regex(stripAnsi(output), /❌ {3}1:1 {2}AVA should be imported as test. {6}ava:use-test/)
 })
 
 test('link rules to documentation when terminal supports links', t => {
@@ -87,12 +87,12 @@ test('sort by severity, then line number, then column number', t => {
   const output = reporter(sortOrder)
   const sanitized = stripAnsi(output)
   const indexes = [
-    sanitized.indexOf('⚠   1:1'),
-    sanitized.indexOf('⚠  10:2'),
-    sanitized.indexOf('✖   3:1'),
-    sanitized.indexOf('✖  30:1'),
-    sanitized.indexOf('✖  40:5'),
-    sanitized.indexOf('✖  40:8')
+    sanitized.indexOf('⚠️   1:1'),
+    sanitized.indexOf('⚠️  10:2'),
+    sanitized.indexOf('❌   3:1'),
+    sanitized.indexOf('❌  30:1'),
+    sanitized.indexOf('❌  40:5'),
+    sanitized.indexOf('❌  40:8')
   ]
   console.log(output)
   t.deepEqual(indexes, indexes.slice().sort((a, b) => a - b))
