@@ -36,15 +36,8 @@
 		"path": "CHANGELOG.md",
 		"messages": [
 			{
-				"ruleId": "remark-changelog:release-date",
-				"fatal": false,
-				"reason": "Release must have date",
-				"line": 7,
-				"column": 1
-			},
-			{
 				"ruleId": "remark-lint:code-block-style",
-				"fatal": false,
+				"fatal": true,
 				"reason": "Code blocks should be fenced",
 				"line": 9,
 				"column": 25
@@ -52,12 +45,21 @@
 		]
 	},
 	{
-		"path": ".",
+		"path": "dependabot.yml",
 		"messages": [
 			{
-				"ruleId": "attend:pr",
+				"ruleId": "attend-dependabot:ecosystems",
 				"fatal": null,
-				"reason": "Pull request was already merged"
+				"reason": "Adding `npm` package ecosystem",
+				"line": 1,
+				"column": 1
+			},
+			{
+				"ruleId": "attend-dependabot:ecosystems",
+				"fatal": null,
+				"reason": "Adding `github-actions` package ecosystem",
+				"line": 1,
+				"column": 1
 			}
 		]
 	}

@@ -176,10 +176,10 @@ test('doesn\'t throw errors when rule docs aren\'t found', t => {
   t.true(output.includes('@typescript-eslint:no-unused-vars'))
 })
 
-test('link remark-lint rules to remark-lint docs', t => {
+test('link remark and attend rules to docs', t => {
   enableHyperlinks()
   const output = reporter(defaultFixture, data)
   console.log(output)
   t.true(output.includes(ansiEscapes.link(chalk.dim('remark-lint:code-block-style'), 'https://github.com/remarkjs/remark-lint/blob/main/doc/rules.md')))
-  t.true(output.includes(ansiEscapes.link(chalk.dim('remark-changelog:release-date'), 'https://npmjs.com/package/remark-changelog')))
+  t.true(output.includes(ansiEscapes.link(chalk.dim('attend-dependabot:ecosystems'), 'https://npmjs.com/package/attend-dependabot')))
 })

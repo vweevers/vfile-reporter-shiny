@@ -63,7 +63,7 @@ module.exports = function (files, options) {
       else errorCount++
 
       // Stylize inline code blocks
-      reason = reason.replace(/\B`(.*?)`\B|\B'(.*?)'\B/g, (m, p1, p2) => chalk.bold(p1 || p2))
+      reason = reason.replace(/\B`(.*?)`\B|\B'(.*?)'\B/g, (m, p1, p2) => chalk.cyan(p1 || p2))
 
       const pos = stringify(m)
       const posWidth = stringWidth(pos)
