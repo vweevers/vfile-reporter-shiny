@@ -4,6 +4,7 @@ const ansiEscapes = require('ansi-escapes')
 const chalk = require('chalk')
 const defaultFixture = require('./fixtures/default.json')
 const noRuleDocs = require('./fixtures/no-rule-docs.json')
+const noRuleId = require('./fixtures/no-rule-id.json')
 const noLineNumbers = require('./fixtures/no-line-numbers.json')
 const lineNumbers = require('./fixtures/line-numbers.json')
 const sortOrder = require('./fixtures/sort-by-severity-then-line-then-column.json')
@@ -81,6 +82,15 @@ test('link rules to documentation when terminal supports links', t => {
   const output = reporter(defaultFixture)
   console.log(output)
   t.true(output.includes(ansiEscapes.link(chalk.dim('eslint:no-warning-comments'), 'https://eslint.org/docs/rules/no-warning-comments')))
+})
+
+test('no rule id', t => {
+  disableHyperlinks()
+  const output = reporter(noRuleId)
+  console.log(output)
+  t.regex(stripAnsi(output), /❌ {2}1:1 {2}One {4}\n/)
+  t.regex(stripAnsi(output), /❌ {2}2:1 {2}Two {4}eslint:beep\n/)
+  t.regex(stripAnsi(output), /❌ {2}3:1 {2}Three {2}beep:boop\n/)
 })
 
 test('sort by severity, then line number, then column number', t => {

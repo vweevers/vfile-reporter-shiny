@@ -135,6 +135,10 @@ module.exports = function (files, options) {
 }
 
 function ruleInfo (ruleId, options) {
+  if (!ruleId) {
+    return { ruleId: '', ruleUrl: '' }
+  }
+
   let ruleUrl
 
   const remarkRule = ruleId.replace(/[/]/g, ':')

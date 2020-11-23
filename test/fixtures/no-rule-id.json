@@ -1,0 +1,28 @@
+[
+	{
+		"path": "beep.js",
+		"messages": [
+			{
+				"fatal": true,
+				"reason": "One",
+				"line": 1,
+				"column": 1
+			},
+			{
+				"fatal": true,
+				"source": "beep",
+				"reason": "Two",
+				"line": 2,
+				"column": 1
+			},
+			{
+				"fatal": true,
+				"source": "beep",
+				"ruleId": "boop",
+				"reason": "Three",
+				"line": 3,
+				"column": 1
+			}
+		]
+	}
+]
