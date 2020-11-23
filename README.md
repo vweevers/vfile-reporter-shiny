@@ -4,7 +4,7 @@
 
 [![npm status](http://img.shields.io/npm/v/vfile-reporter-shiny.svg)](https://www.npmjs.org/package/vfile-reporter-shiny)
 [![node](https://img.shields.io/node/v/vfile-reporter-shiny.svg)](https://www.npmjs.org/package/vfile-reporter-shiny)
-[![Build Status](https://travis-ci.com/vweevers/vfile-reporter-shiny.svg?branch=main)](https://travis-ci.com/github/vweevers/vfile-reporter-shiny)
+![Test](https://github.com/vweevers/vfile-reporter-shiny/workflows/Test/badge.svg?branch=main)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ![screenshot](screenshot.png)
