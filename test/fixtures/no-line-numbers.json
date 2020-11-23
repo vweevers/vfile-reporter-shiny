@@ -5,7 +5,7 @@
 			{
 				"ruleId": "no-warning-comments",
 				"severity": 1,
-				"reason": "Unexpected 'todo' comment."
+				"reason": "Unexpected `todo` comment."
 			},
 			{
 				"ruleId": "no-multiple-empty-lines",

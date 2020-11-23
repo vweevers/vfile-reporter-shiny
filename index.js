@@ -9,6 +9,7 @@ const ansiEscapes = require('ansi-escapes')
 const { supportsHyperlink } = require('supports-hyperlinks')
 const getRuleDocs = require('eslint-rule-docs')
 const stringify = require('unist-util-stringify-position')
+const toAnsi = require('markdown-to-ansi')()
 const logSymbols = getLogSymbols()
 
 module.exports = function (files, options) {
@@ -62,8 +63,8 @@ module.exports = function (files, options) {
       else if (severity === 1) warningCount++
       else errorCount++
 
-      // Stylize inline code blocks
-      reason = reason.replace(/\B`(.*?)`\B|\B'(.*?)'\B/g, (m, p1, p2) => chalk.cyan(p1 || p2))
+      // Link and shorten urls, stylize inline code blocks
+      reason = toAnsi(reason)
 
       const pos = stringify(m)
       const posWidth = stringWidth(pos)

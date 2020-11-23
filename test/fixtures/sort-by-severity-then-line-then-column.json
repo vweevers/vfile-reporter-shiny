@@ -5,7 +5,7 @@
 			{
 				"ruleId": "no-warning-comments",
 				"severity": 1,
-				"reason": "Unexpected 'todo' comment.",
+				"reason": "Unexpected `todo` comment.",
 				"line": 1,
 				"column": 1
 			},
@@ -19,7 +19,7 @@
 			{
 				"ruleId": "no-warning-comments",
 				"severity": 1,
-				"reason": "Unexpected 'todo' comment.",
+				"reason": "Unexpected `todo` comment.",
 				"line": 10,
 				"column": 2
 			},

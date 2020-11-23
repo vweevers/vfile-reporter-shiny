@@ -5,6 +5,7 @@ const chalk = require('chalk')
 const defaultFixture = require('./fixtures/default.json')
 const noRuleDocs = require('./fixtures/no-rule-docs.json')
 const noRuleId = require('./fixtures/no-rule-id.json')
+const urls = require('./fixtures/urls.json')
 const noLineNumbers = require('./fixtures/no-line-numbers.json')
 const lineNumbers = require('./fixtures/line-numbers.json')
 const sortOrder = require('./fixtures/sort-by-severity-then-line-then-column.json')
@@ -82,6 +83,16 @@ test('link rules to documentation when terminal supports links', t => {
   const output = reporter(defaultFixture)
   console.log(output)
   t.true(output.includes(ansiEscapes.link(chalk.dim('eslint:no-warning-comments'), 'https://eslint.org/docs/rules/no-warning-comments')))
+})
+
+test('link literal urls', t => {
+  enableHyperlinks()
+  const output = reporter(urls)
+  console.log(output)
+  t.true(output.includes(ansiEscapes.link('a.com', 'https://a.com/')))
+  t.true(output.includes(ansiEscapes.link('b.dev/foo?bar=1#z', 'https://b.dev/foo?bar=1#z')))
+  t.true(output.includes(ansiEscapes.link('vweevers/vfile-reporter-shiny#1', 'https://github.com/vweevers/vfile-reporter-shiny/pull/1')))
+  t.true(output.includes(ansiEscapes.link('example', 'https://example.com')))
 })
 
 test('no rule id', t => {

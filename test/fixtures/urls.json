@@ -1,0 +1,31 @@
+[
+	{
+		"path": "index.js",
+		"messages": [
+			{
+				"fatal": null,
+				"source": "attend",
+				"ruleId": "boop",
+				"reason": "A https://a.com/ b https://b.dev/foo?bar=1#z",
+				"line": 1,
+				"column": 1
+			},
+			{
+				"fatal": null,
+				"source": "attend",
+				"ruleId": "boop",
+				"reason": "https://github.com/vweevers/vfile-reporter-shiny/pull/1",
+				"line": 2,
+				"column": 1
+			},
+			{
+				"fatal": null,
+				"source": "attend",
+				"ruleId": "boop",
+				"reason": "[example](https://example.com)",
+				"line": 3,
+				"column": 1
+			}
+		]
+	}
+]
