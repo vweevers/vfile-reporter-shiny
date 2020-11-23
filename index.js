@@ -6,17 +6,18 @@ const plur = require('plur')
 const fs = require('fs')
 const stringWidth = require('string-width')
 const ansiEscapes = require('ansi-escapes')
-const { supportsHyperlink } = require('supports-hyperlinks')
+const sh = require('supports-hyperlinks').supportsHyperlink
 const getRuleDocs = require('eslint-rule-docs')
 const stringify = require('unist-util-stringify-position')
-const toAnsi = require('markdown-to-ansi')()
+const toAnsi = require('markdown-to-ansi')
 const logSymbols = getLogSymbols()
 
 module.exports = function (files, options) {
   if (!options) options = {}
 
   const lines = []
-  const link = supportsHyperlink(process.stdout) || process.env.WT_SESSION
+  const link = supportsHyperlinks(process.stdout)
+  const transform = toAnsi({ stream: process.stdout })
   const cwd = path.resolve(options.cwd || '.')
 
   let infoCount = 0
@@ -64,7 +65,7 @@ module.exports = function (files, options) {
       else errorCount++
 
       // Link and shorten urls, stylize inline code blocks
-      reason = toAnsi(reason)
+      reason = transform(reason)
 
       const pos = stringify(m)
       const posWidth = stringWidth(pos)
@@ -211,4 +212,24 @@ function getLogSymbols () {
     warning: chalk.yellow('‼'),
     error: chalk.red('×')
   }
+}
+
+function supportsHyperlinks (stream) {
+  if (process.env.FORCE_HYPERLINK === '0') {
+    return false
+  }
+
+  if (process.env.FORCE_HYPERLINK === '1') {
+    return true
+  }
+
+  if (!stream.isTTY) {
+    return false
+  }
+
+  return sh(stream) || isWindowsTerminal()
+}
+
+function isWindowsTerminal () {
+  return !!process.env.WT_SESSION
 }
