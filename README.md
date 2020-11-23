@@ -14,9 +14,9 @@
 - Sorts results by severity.
 - Stylizes inline codeblocks in messages.
 - In [terminals that support hyperlinks](https://gist.github.com/egmontkob/eb114294efbcd5adb1944c9f3cb5feda#supporting-apps):
- - Rules are linked to their docs. This works for [`eslint`](https://eslint.org/), [`remark`](https://remark.js.org/) and [`attend`](https://github.com/vweevers/attend) rules.
- - Literal urls in messages become links
- - Literal GitHub urls are displayed as e.g. `vweevers/vfile-reporter-shiny#1`
+  - Rules are linked to their docs. This works for [`eslint`](https://eslint.org/), [`remark`](https://remark.js.org/) and [`attend`](https://github.com/vweevers/attend) rules.
+  - Literal urls in messages become links
+  - Literal GitHub urls are displayed as e.g. `vweevers/vfile-reporter-shiny#1`
 - In iTerm and ConEmu, click a filename to open it in your editor.
 
 ## Install
